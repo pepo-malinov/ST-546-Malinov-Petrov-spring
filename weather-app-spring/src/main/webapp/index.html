@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Weather App</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap&subset=cyrillic" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+
+</head>
+
+<body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <div class="container">
+
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Начало
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Приятели</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Известия</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Профил</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Изход</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 mt-3 mt-md-5">
+                <div class="card">
+                    <div class="card-body">
+                       <img class="img-fluid" src="images/image.jpg">
+                    </div>
+                </div>
+            </div>
+            <div class="col mt-3 mt-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-envelope"></i>
+                                        </span>
+                                    </div>
+                                    <input 
+                                        type="email" class="form-control" 
+                                        id="email" 
+                                        placeholder="Въведи email" 
+                                    >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Парола</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-key"></i>
+                                        </span>
+                                    </div>
+                                    <input 
+                                        type="password" class="form-control" 
+                                        id="password" 
+                                        placeholder="Въведи парола" 
+                                    >
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <button id="login-button" type="button" class="btn btn-success">Влез</button>
+                                <button type="button" class="btn btn-outline-success" 
+                                data-toggle="modal" 
+                                data-target="#registerModal">Регистрация</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mt-3 mt-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Снимка</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mt-3 mt-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Логин форма</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mt-3 mt-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Логин форма</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+    </div>
+
+
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Регистрирай се</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <form id="register-form" action="register" method="POST">
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input 
+                            name="email"
+                            type="email" class="form-control" 
+                            id="registerEmail" placeholder="Въведи email">
+                        </div>
+                        <div class="form-group">
+                            <label for="registerUsername">Потребителско име</label>
+                            <input 
+                            name="username"
+                            type="text" class="form-control" 
+                            id="registerUsername"
+                            placeholder="Въведи потребителско име">
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Парола</label>
+                            <input 
+                            name="password"
+                            type="password" class="form-control" 
+                            id="registerPassword" placeholder="Въведи парола">
+                        </div>
+                        <div class="form-group">
+                            <label for="repeatPassword">Повтори паролата</label>
+                            <input type="password" class="form-control" 
+                            id="repeatPassword" placeholder="Повтори паролата">
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Откажи</button>
+                  <button id="confirm-register" type="button" class="btn btn-success">Напред</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="js/login.js"></script>
+</body>
+
+
+</html>
