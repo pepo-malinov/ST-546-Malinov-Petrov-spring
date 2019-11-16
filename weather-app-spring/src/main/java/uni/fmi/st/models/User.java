@@ -1,6 +1,7 @@
 package uni.fmi.st.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,7 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity(name = "User")
+@JsonIgnoreProperties({"posts", "password"})
 public class User implements Serializable {
 	private static final long serialVersionUID = 2L;
 	@Id
@@ -91,11 +95,18 @@ public class User implements Serializable {
 	}
 
 	public List<Post> getPosts() {
+		if (null == posts) {
+			posts = new ArrayList<>();
+		}
 		return posts;
 	}
 
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
+	}
+
+	public void addPost(Post post) {
+		getPosts().add(post);
 	}
 
 }

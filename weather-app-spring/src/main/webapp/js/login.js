@@ -12,7 +12,7 @@ $("#login-button").on("click", function() {
 		}
 	}).done(function(response) {
 		console.log(response);
-		//window.location = response;
+		window.location = response;
 	});
 })
 

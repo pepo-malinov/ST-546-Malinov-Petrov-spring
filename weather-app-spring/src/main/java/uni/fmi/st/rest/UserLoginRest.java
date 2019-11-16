@@ -1,5 +1,7 @@
 package uni.fmi.st.rest;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,14 +21,18 @@ public class UserLoginRest {
 	}
 
 	@PostMapping(value = "/login")
-	public User login(@RequestParam(name = "email") String email,
-				@RequestParam(name = "password") String password) {
-		return repository.findByEmailAndPassword(email, password);
+	public String login(@RequestParam(name = "email") String email, @RequestParam(name = "password") String password,
+			HttpSession session) {
+		final User currentUser = repository
+							.findByEmailAndPassword(email, password);
+		if (null != currentUser) {
+			session.setAttribute("currentUser", currentUser);
+		}
+		return "profile.html";
 	}
 
 	@PostMapping(value = "/register")
-	public User register(@RequestParam(name = "email") String email,
-			@RequestParam(name = "username") String username,
+	public User register(@RequestParam(name = "email") String email, @RequestParam(name = "username") String username,
 			@RequestParam(name = "password") String password) {
 		final User newUser = new User(username, password, email);
 		return repository.saveAndFlush(newUser);
