@@ -54,4 +54,5 @@ find weather-app-spring directory in the cloned project -> right click import pr
 
 the project should appear within your project explorer
 
+to start the project find src/main/java -> WeatherApplication.java -> right click and Run As -> Java Application
 
