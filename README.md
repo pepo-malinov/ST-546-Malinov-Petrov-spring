@@ -42,3 +42,17 @@ java -jar project-name.war
 press enter
 
 The server should run by default on localhost:8080
+
+
+===================================================
+
+Checking out the project for first time from github
+
+open git perspective in eclipse and clone the project
+
+find weather-app-spring directory in the cloned project -> right click import project -> finish
+
+the project should appear within your project explorer
+
+to start the project find src/main/java -> WeatherApplication.java -> right click and Run As -> Java Application
+
