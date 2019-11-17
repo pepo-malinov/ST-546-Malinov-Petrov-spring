@@ -45,7 +45,8 @@ public class PostManagerRest {
 							.findFirst().orElse(null);
 		if(null != postForRemove) {
 			posts.remove(postForRemove);
-			userRepo.save(user);
+			session.setAttribute("currentUser", userRepo.save(user));
+			postRepo.delete(postForRemove);
 		}
 		return ResponseEntity.ok().body("Post with id: "+ id + " is removed");
 	}
@@ -74,8 +75,7 @@ public class PostManagerRest {
 		final Post post = new Post(comment, place, temp);
 		post.setOwner(user);
 		user.addPost(post);
-		userRepo.save(user);
-		postRepo.save(post);
+		session.setAttribute("currentUser", userRepo.save(user));
 
 		return ResponseEntity.ok(post);
 	}
