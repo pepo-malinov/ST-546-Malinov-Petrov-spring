@@ -45,35 +45,37 @@ $(function(){
              }
          })
          .done(function( response ) {
-            console.log(response);
-            //publishComment(cityLabel, comment, temperature);
+            publishComment(
+            		response.id,
+            		response.place, 
+            		response.comment, 
+            		response.temp);
          })
     	 .fail(function(response){
     		 console.log(response);
     	 })
     }
 
-    var publishComment = function(cityLabel, comment, temperature){
+    var publishComment = function(id, cityLabel, comment, temperature){
 
         var $template = $('#comment-template').html();
         $template = $($template);
 
+        $template.find('.remove-item').attr('id', id);
         $template.find('span').text(temperature);
         $template.find('h4').text(cityLabel);
         $template.find('p').text(comment);
         
         var $commentsList = $("#comments-list");
         $commentsList.append($template);
-
     }
-
-
     $("#select-city").on("change", function(){
        var selectedCity = $(this).val();
        loadWeatherData(selectedCity);
     })
-
     $(document).on('click', '.remove-item', function() {
+    	var postId = $(this).attr('id');
+    	console.log(postId);
         $selectedComment = $(this).closest('.list-group-item');
     })
 
