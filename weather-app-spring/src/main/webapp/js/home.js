@@ -45,7 +45,7 @@ $(function(){
              }
          })
          .done(function( response ) {
-            publishComment(
+            renderComment(
             		response.id,
             		response.place, 
             		response.comment, 
@@ -56,7 +56,30 @@ $(function(){
     	 })
     }
 
-    var publishComment = function(id, cityLabel, comment, temperature){
+    getUserPosts = function(){
+    	 $.ajax({
+             method: "GET",
+             url: "getMyPosts"
+         })
+         .done(function( response ) {
+
+        	 for(var i = 0; i < response.length; i++){
+        		 var currentPost = response[i];
+        		 renderComment(
+        				 currentPost.id,
+        				 currentPost.place, 
+        				 currentPost.comment, 
+        				 currentPost.temp);
+        	 }
+           
+         })
+    	 .fail(function(response){
+    		 console.log(response);
+    	 })
+    }
+    
+    
+    var renderComment = function(id, cityLabel, comment, temperature){
 
         var $template = $('#comment-template').html();
         $template = $($template);
@@ -85,5 +108,6 @@ $(function(){
     })
 
     loadInitialData();
+    getUserPosts();
 
 })
