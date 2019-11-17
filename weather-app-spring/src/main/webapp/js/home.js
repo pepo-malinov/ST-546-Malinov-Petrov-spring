@@ -31,10 +31,27 @@ $(function(){
         var $comment = $('#comment');
         var comment = $comment.val();
         var temperature = $("#current-temp").text();
-
-        publishComment(cityLabel, comment, temperature);
+        postComment(cityLabel, comment, temperature);
         $comment.val('');
     })
+    var postComment = function(comment, place, temp){
+    	 $.ajax({
+             method: "POST",
+             url: "createPost",
+             data: {
+            	 comment: comment,
+            	 place: place,
+            	 temp: temp
+             }
+         })
+         .done(function( response ) {
+            console.log(response);
+            //publishComment(cityLabel, comment, temperature);
+         })
+    	 .fail(function(response){
+    		 console.log(response);
+    	 })
+    }
 
     var publishComment = function(cityLabel, comment, temperature){
 

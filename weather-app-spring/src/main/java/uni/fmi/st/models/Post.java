@@ -3,11 +3,15 @@ package uni.fmi.st.models;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({ "owner" })
 @Entity
 public class Post implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -17,7 +21,7 @@ public class Post implements Serializable {
 	private String comment;
 	private String place;
 	private float temp;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	private User owner;
 
 	public Post() {
