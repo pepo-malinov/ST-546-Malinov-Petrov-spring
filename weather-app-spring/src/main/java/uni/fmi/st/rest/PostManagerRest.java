@@ -3,6 +3,8 @@ package uni.fmi.st.rest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,16 +27,21 @@ public class PostManagerRest {
 	}
 
 	@PostMapping("/createPost")
-	public Post createPost(@RequestParam(name = "comment") String comment, @RequestParam(name = "place") String place,
+	public ResponseEntity<Post> createPost(@RequestParam(name = "comment") String comment, @RequestParam(name = "place") String place,
 			@RequestParam(name = "temp") float temp, HttpSession session) {
+		
 		final User user = (User) session.getAttribute("currentUser");
+		if(null == user) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+					.body(null);
+		}
 		final Post post = new Post(comment, place, temp);
 		post.setOwner(user);
 		user.addPost(post);	
 		userRepo.save(user);
 		postRepo.save(post);
 		
-		return post;
+		return ResponseEntity.ok(post);
 	}
 
 }
