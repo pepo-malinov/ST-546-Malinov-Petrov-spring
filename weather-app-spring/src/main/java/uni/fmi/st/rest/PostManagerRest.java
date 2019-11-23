@@ -45,13 +45,13 @@ public class PostManagerRest {
 							.findFirst().orElse(null);
 		if(null != postForRemove) {
 			posts.remove(postForRemove);
-			session.setAttribute("currentUser", userRepo.save(user));
+			//session.setAttribute("currentUser", userRepo.save(user));
 			postRepo.delete(postForRemove);
 		}
 		return ResponseEntity.ok().body("Post with id: "+ id + " is removed");
 	}
 	
-	@GetMapping("/getMyPosts")
+	@GetMapping("/getPosts")
 	public ResponseEntity<List<Post>> getAllPosts(HttpSession session) {
 		final List<Post> posts = new ArrayList<>();
 		final User user = (User) session.getAttribute("currentUser");
@@ -59,7 +59,7 @@ public class PostManagerRest {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
 					.body(posts);
 		} else {
-			posts.addAll(user.getPosts());
+			posts.addAll(postRepo.findByPublicPost(user));
 		}
 		return ResponseEntity.ok(posts);
 	}

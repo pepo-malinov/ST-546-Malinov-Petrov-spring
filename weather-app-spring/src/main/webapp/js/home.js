@@ -29,17 +29,20 @@ $(function() {
 		var $comment = $('#comment');
 		var comment = $comment.val();
 		var temperature = $("#current-temp").text();
-		postComment(cityLabel, comment, temperature);
+		var publicPost = $("#public-post").is(':checked');
+		
+		postComment(cityLabel, comment, temperature, publicPost);
 		$comment.val('');
 	})
-	var postComment = function(comment, place, temp) {
+	var postComment = function(comment, place, temp, publicPost) {
 		$.ajax({
 			method : "POST",
 			url : "createPost",
 			data : {
 				comment : comment,
 				place : place,
-				temp : temp
+				temp : temp,
+				publicPost: publicPost
 			}
 		}).done(
 				function(response) {
@@ -53,7 +56,7 @@ $(function() {
 	getUserPosts = function() {
 		$.ajax({
 			method : "GET",
-			url : "getMyPosts"
+			url : "getPosts"
 		}).done(
 				function(response) {
 
