@@ -34,16 +34,19 @@ public class PostManagerRest {
 	public ResponseEntity<String> removePost(@RequestParam(name = "id") int id, HttpSession session) {
 		final User user = (User) session.getAttribute("currentUser");
 		if (null == user) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("");
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+													.body("");
 		}
-		List<Post> posts = user.getPosts();
-		Post postForRemove = posts.stream().filter(post -> id == post.getId()).findFirst().orElse(null);
+		final Post postForRemove = postRepo.findById(id).orElse(null);
 		if (null != postForRemove) {
-			posts.remove(postForRemove);
-			// session.setAttribute("currentUser", userRepo.save(user));
-			postRepo.delete(postForRemove);
+			if (!user.equals(postForRemove.getOwner())) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			} else {
+				postRepo.delete(postForRemove);
+			}
 		}
-		return ResponseEntity.ok().body("Post with id: " + id + " is removed");
+		return ResponseEntity.ok().body("Post with id: " + id 
+										+ " is removed");
 	}
 
 	@GetMapping("/getPosts")
