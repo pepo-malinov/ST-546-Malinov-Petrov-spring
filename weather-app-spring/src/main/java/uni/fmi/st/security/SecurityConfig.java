@@ -8,6 +8,7 @@ import org.springframework.boot.actuate.autoconfigure.security
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -23,16 +24,21 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
  */
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(
+		securedEnabled = true,
+		prePostEnabled = true,
+		jsr250Enabled = true
+		)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 		.authorizeRequests()
-		//.antMatchers("/home.html").hasRole("ADMIN")
-		.regexMatchers(HttpMethod.POST, "/removeMyPosts")
-		.hasAnyRole("ADMIN", "USER")
-		/*.regexMatchers(HttpMethod.POST, "/register")
+		/*.antMatchers("/home.html").hasRole("ADMIN")
+		.regexMatchers(HttpMethod.POST, "/removeMyPost")
+		.hasRole("ADMIN")
+		.regexMatchers(HttpMethod.POST, "/register")
 		.hasAnyRole("ADMIN", "USER")*/
 		.antMatchers("/**").permitAll()
 		.requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
@@ -43,11 +49,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	@Override
 	protected UserDetailsService userDetailsService() {
-		UserDetails user = User.withUsername("user")
+		UserDetails user = User.withDefaultPasswordEncoder()
+							.username("user")
 							.password("password")
 							.roles("USER")
 							.build();
-		UserDetails admin = User.withUsername("admin")
+		UserDetails admin = User.withDefaultPasswordEncoder()
+							.username("admin")
 							.password("password")
 							.roles("USER", "ADMIN")
 							.build();

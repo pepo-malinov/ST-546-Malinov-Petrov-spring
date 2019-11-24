@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +31,9 @@ public class PostManagerRest {
 		this.userRepo = userRepo;
 	}
 
+	
+	@Secured("ROLE_ADMIN")
+	//@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	@PostMapping("/removeMyPost")
 	public ResponseEntity<String> removePost(@RequestParam(name = "id") int id, HttpSession session) {
 		final User user = (User) session.getAttribute("currentUser");

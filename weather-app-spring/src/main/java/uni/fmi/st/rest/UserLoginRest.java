@@ -44,8 +44,10 @@ public class UserLoginRest {
 						.loadUserByUsername("user");
 			}
 			Authentication authentication = new 
-					UsernamePasswordAuthenticationToken(securityUser.getUsername(),
-							securityUser.getPassword());
+					UsernamePasswordAuthenticationToken(
+							securityUser.getUsername(),
+							securityUser.getPassword(),
+							securityUser.getAuthorities());
 			SecurityContextHolder.getContext()
 							.setAuthentication(authentication);
 			ServletRequestAttributes attr = (ServletRequestAttributes)
