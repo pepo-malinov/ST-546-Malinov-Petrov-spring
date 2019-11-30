@@ -3,6 +3,7 @@ package uni.fmi.st.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -29,6 +33,13 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="owner", fetch = FetchType.EAGER,
 			cascade = CascadeType.ALL)
 	private List<Post> posts;
+	
+	@ManyToMany
+	@JoinTable(name = "user_role",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "id"))
+	private Set<Role> roles;
+
 
 	public User() {
 
@@ -150,6 +161,20 @@ public class User implements Serializable {
 		} else if (!username.equals(other.username))
 			return false;
 		return true;
+	}
+
+	/**
+	 * @return the roles
+	 */
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	/**
+	 * @param roles the roles to set
+	 */
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 }
