@@ -25,7 +25,7 @@ public class Post implements Serializable {
 	private String comment;
 	private String place;
 	private float temp;
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private User owner;
 	private Boolean publicPost;
 
