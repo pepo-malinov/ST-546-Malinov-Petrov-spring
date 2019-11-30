@@ -32,7 +32,7 @@ public class PostManagerRest {
 	}
 
 	
-	@Secured("ROLE_ADMIN")
+	@Secured({"ROLE_ADMIN", "ROLE_USER"})
 	//@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	@PostMapping("/removeMyPost")
 	public ResponseEntity<String> removePost(@RequestParam(name = "id") int id, HttpSession session) {
@@ -46,7 +46,9 @@ public class PostManagerRest {
 			if (!user.equals(postForRemove.getOwner())) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			} else {
+				user.getPosts().remove(postForRemove);
 				postRepo.delete(postForRemove);
+				session.setAttribute("currentUser", userRepo.save(user));
 			}
 		}
 		return ResponseEntity.ok().body("Post with id: " + id 
