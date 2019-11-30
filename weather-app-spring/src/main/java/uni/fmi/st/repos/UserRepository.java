@@ -9,4 +9,6 @@ import uni.fmi.st.models.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
 	User findByEmailAndPassword(final String email, final String password);
+
+	User findByEmail(String email);
 }
