@@ -34,7 +34,7 @@ public class User implements Serializable {
 			cascade = CascadeType.ALL)
 	private List<Post> posts;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role",
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "id"))
